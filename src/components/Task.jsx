@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
 
 const Task = ({ task, delTask, doneTask, modTask }) => {
   const [edit, setEdit] = useState(false);
@@ -25,8 +24,8 @@ const Task = ({ task, delTask, doneTask, modTask }) => {
   };
 
   return (
-    <div className="m-5 flex flex-row w-full gap-3 justify-center">
-      <div className="text-center w-80 px-10 mx-5 border-dashed hover:border-solid border-2 border-gray-600 flex items-center ">
+    <div className="my-3 flex flex-row w-full gap-3 justify-center">
+      <div className="text-center w-80 px-10 mx-1 border-dashed hover:border-solid border-2 border-gray-600 flex items-center ">
         {edit ? (
           <input
             className="bg-inherit px-2"

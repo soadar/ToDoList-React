@@ -26,15 +26,21 @@ function App() {
   };
 
   const delTask = (taskId) => {
-    setTasks(tasks.filter((t) => t.id !== taskId));
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-    toast.error("Tarea eliminada...", {
-      position: "top-right",
-      theme: "dark",
-      hideProgressBar: true,
-      closeOnClick: true,
-      autoClose: 1000,
-    });
+    if (tasks.length) {
+      console.log(taskId);
+
+      setTasks(tasks.filter((t) => t.id !== taskId));
+      //console.log(tasks.filter((t) => t.id !== taskId));
+      console.log(tasks);
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+      toast.error("Tarea eliminada...", {
+        position: "top-right",
+        theme: "dark",
+        hideProgressBar: true,
+        closeOnClick: true,
+        autoClose: 1000,
+      });
+    }
   };
 
   const doneTask = (taskId) => {
@@ -68,7 +74,7 @@ function App() {
   return (
     <MagicMotion>
       <h1 className="text-6xl font-bold text-center m-12">ToDoList</h1>
-      <section className="max-w-[50%] mx-auto">
+      <section className="md:max-w-[50%] mx-auto">
         <FormTask addTasks={loadTask} />
         <TaskList tareas={tasks} delTask={delTask} doneTask={doneTask} modTask={modTask} />
         <ToastContainer />

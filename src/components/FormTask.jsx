@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 const FormTask = ({ addTasks }) => {
   const [task, setTask] = useState([]);
@@ -23,6 +24,13 @@ const FormTask = ({ addTasks }) => {
         date: new Date(),
       };
       addTasks(newTask);
+      toast.success("Tarea agregada...", {
+        position: "top-right",
+        theme: "dark",
+        hideProgressBar: true,
+        closeOnClick: true,
+        autoClose: 1000,
+      });
     }
   };
 

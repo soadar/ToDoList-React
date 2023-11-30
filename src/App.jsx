@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { MagicMotion } from "react-magic-motion";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 import FormTask from "./components/FormTask";
@@ -26,6 +28,13 @@ function App() {
   const delTask = (taskId) => {
     setTasks(tasks.filter((t) => t.id !== taskId));
     localStorage.setItem("tasks", JSON.stringify(tasks));
+    toast.error("Tarea eliminada...", {
+      position: "top-right",
+      theme: "dark",
+      hideProgressBar: true,
+      closeOnClick: true,
+      autoClose: 1000,
+    });
   };
 
   const doneTask = (taskId) => {
@@ -34,6 +43,16 @@ function App() {
     newTasks[taskIndex].done = !newTasks[taskIndex].done;
     setTasks(newTasks);
     localStorage.setItem("tasks", JSON.stringify(tasks));
+
+    if (newTasks[taskIndex].done) {
+      toast.success("Tarea completada...", {
+        position: "top-right",
+        theme: "dark",
+        hideProgressBar: true,
+        closeOnClick: true,
+        autoClose: 1000,
+      });
+    }
   };
 
   const modTask = (taskId, newName) => {
@@ -47,13 +66,14 @@ function App() {
   };
 
   return (
-    <>
+    <MagicMotion>
       <h1 className="text-6xl font-bold text-center m-12">ToDoList</h1>
       <section className="max-w-[50%] mx-auto">
         <FormTask addTasks={loadTask} />
         <TaskList tareas={tasks} delTask={delTask} doneTask={doneTask} modTask={modTask} />
+        <ToastContainer />
       </section>
-    </>
+    </MagicMotion>
   );
 }
 

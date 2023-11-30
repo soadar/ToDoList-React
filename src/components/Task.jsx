@@ -24,12 +24,12 @@ const Task = ({ task, delTask, doneTask, modTask }) => {
   };
 
   return (
-    <div className="my-3 flex flex-row w-full gap-3 justify-center">
-      <div className="text-center w-80 px-10 mx-1 border-dashed hover:border-solid border-2 border-gray-600 flex items-center ">
+    <div className="my-3 flex flex-row w-full gap-1 justify-center">
+      <div className="text-center w-80 mx-1 border-dashed hover:border-solid border-2 border-gray-600 flex items-center ">
         {edit ? (
           <input
-            className="bg-inherit px-2"
-            placeholder="Ingres nombre nuevo"
+            className="bg-inherit w-full mx-2"
+            placeholder="Nuevo nombre"
             type="text"
             id="newNameInput"
             value={newName}

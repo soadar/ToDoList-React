@@ -68,12 +68,19 @@ function App() {
       newTasks[taskIndex].name = newName;
       setTasks(newTasks);
       localStorage.setItem("tasks", JSON.stringify(tasks));
+      toast.success("Tarea modificada...", {
+        position: "top-right",
+        theme: "dark",
+        hideProgressBar: true,
+        closeOnClick: true,
+        autoClose: 1000,
+      });
     }
   };
 
   return (
     <MagicMotion>
-      <h1 className="text-6xl font-bold text-center m-12">ToDoList</h1>
+      <h1 className="text-6xl font-bold text-center m-5">ToDoList</h1>
       <section className="md:max-w-[50%] mx-auto">
         <FormTask addTasks={loadTask} />
         <TaskList tareas={tasks} delTask={delTask} doneTask={doneTask} modTask={modTask} />

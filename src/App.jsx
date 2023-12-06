@@ -3,7 +3,7 @@ import { MagicMotion } from "react-magic-motion";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
-import FormTask from "./components/FormTask";
+import TaskForm from "./components/TaskForm";
 import TaskList from "./components/TaskList";
 
 function App() {
@@ -26,31 +26,24 @@ function App() {
   };
 
   const delTask = (taskId) => {
-    if (tasks.length) {
-      console.log(taskId);
-
-      setTasks(tasks.filter((t) => t.id !== taskId));
-      //console.log(tasks.filter((t) => t.id !== taskId));
-      console.log(tasks);
-      localStorage.setItem("tasks", JSON.stringify(tasks));
-      toast.error("Tarea eliminada...", {
-        position: "top-right",
-        theme: "dark",
-        hideProgressBar: true,
-        closeOnClick: true,
-        autoClose: 1000,
-      });
-    }
+    if (tasks.length === 1) tasks.shift();
+    setTasks(tasks.filter((task) => task.id !== taskId));
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+    toast.error("Tarea eliminada...", {
+      position: "top-right",
+      theme: "dark",
+      hideProgressBar: true,
+      closeOnClick: true,
+      autoClose: 1000,
+    });
   };
 
   const doneTask = (taskId) => {
-    const newTasks = [...tasks];
-    const taskIndex = newTasks.findIndex((task) => task.id === taskId);
-    newTasks[taskIndex].done = !newTasks[taskIndex].done;
-    setTasks(newTasks);
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-
-    if (newTasks[taskIndex].done) {
+    const newTask = [...tasks];
+    const taskIndex = newTask.findIndex((task) => task.id === taskId);
+    newTask[taskIndex].done = !newTask[taskIndex].done;
+    setTasks(newTask);
+    if (newTask[taskIndex].done) {
       toast.success("Tarea completada...", {
         position: "top-right",
         theme: "dark",
@@ -67,7 +60,6 @@ function App() {
       const taskIndex = newTasks.findIndex((task) => task.id === taskId);
       newTasks[taskIndex].name = newName;
       setTasks(newTasks);
-      localStorage.setItem("tasks", JSON.stringify(tasks));
       toast.success("Tarea modificada...", {
         position: "top-right",
         theme: "dark",
@@ -82,7 +74,7 @@ function App() {
     <MagicMotion>
       <h1 className="text-6xl font-bold text-center m-5">ToDoList</h1>
       <section className="md:max-w-[50%] mx-auto">
-        <FormTask addTasks={loadTask} />
+        <TaskForm addTasks={loadTask} />
         <TaskList tareas={tasks} delTask={delTask} doneTask={doneTask} modTask={modTask} />
         <ToastContainer />
       </section>
